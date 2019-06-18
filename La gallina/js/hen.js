@@ -1,4 +1,4 @@
-function Quica(){
+function Gallina(){
 	this.x = 310;
 	this.y = 15;
 	this.img = [$("#abajo")[0],$("#arriba")[0],$("#salto")[0],$("#sentado")[0]];
@@ -6,7 +6,7 @@ function Quica(){
 	this.vida = 100;
 	this.puntos = 0;
 	this.seguro = "arriba";
-	
+
 	this.dibujar = function(ctx){
 		var img = this.img[this.sprite];
 		var x = this.x;
@@ -25,7 +25,7 @@ function Quica(){
 		}
 		ctx.restore();
 	}
-	
+
 	this.actualizar = function(accion){
 		if(accion=="arriba" && this.y > 15){
 			this.y -= 10;
@@ -45,7 +45,7 @@ function Quica(){
 		}
 		this.x = (640 + this.x)%640;
 		this.y = (480 + this.y)%480;
-		
+
 		if(this.y > 340 && this.seguro == "arriba"){
 			this.seguro = "abajo";
 			this.puntos++;
@@ -55,12 +55,12 @@ function Quica(){
 			this.puntos++;
 		}
 	}
-	
+
 	this.colision = function(x,y){
 		var distancia=Math.sqrt( Math.pow( (x-this.x), 2)+Math.pow( (y-this.y),2));
 		if(distancia>this.img[this.sprite].width)
 		   return false;
 		else
-		   return true;	
+		   return true;
 	}
 }

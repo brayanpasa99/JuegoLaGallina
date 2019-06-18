@@ -9,75 +9,75 @@ function inicio(){
 	miCanvas = $("#mi_canvas")[0];
 	contexto = miCanvas.getContext("2d");
 	buffer = document.createElement("canvas");
-	quica = new Quica();
-	calacas = [new Calaca(), new Calaca(),
-				   new Calaca(), new Calaca(),
-				   new Calaca()];
-	run();	
-	
+	gallina = new Gallina();
+	carros = [new Car(), new Car(),
+				   new Car(), new Car(),
+				   new Car()];
+	run();
+
 	$('#instrucciones').click(function(){
         $('#popup').fadeIn('slow');
         $('.popup-overlay').fadeIn('slow');
         $('.popup-overlay').height($(window).height());
         return false;
     });
-    
+
     $('#close').click(function(){
         $('#popup').fadeOut('slow');
         $('.popup-overlay').fadeOut('slow');
         return false;
     });
-    
-    $("#iniciar").click(function(){	
+
+    $("#iniciar").click(function(){
 		if(jugando==false)
-			inicio();	
+			inicio();
 	});
 }
 
 function capturaTeclado(event){
 	if(event.which==38 || event.which==87)
-		quica.actualizar('arriba');
+		gallina.actualizar('arriba');
 	if(event.which==40 || event.which==83)
-		quica.actualizar('abajo');
+		gallina.actualizar('abajo');
 	if(event.which==39 || event.which==68)
-		quica.actualizar('derecha');
+		gallina.actualizar('derecha');
 	if(event.which==37 || event.which==65)
-		quica.actualizar('izquierda');
-	
+		gallina.actualizar('izquierda');
+
 }
 
-function run(){ 
+function run(){
 	buffer.width = miCanvas.width;
 	buffer.height = miCanvas.height;
 	contextoBuffer = buffer.getContext("2d");
-		 
-	if(jugando){  
+
+	if(jugando){
 		contextoBuffer.clearRect(0,0,buffer.width,buffer.height);
 
-		quica.dibujar(contextoBuffer);
-		for(i=0;i<calacas.length;i++){
-			calacas[i].dibujar(contextoBuffer);
-			calacas[i].actualizar();
-			if(quica.colision(calacas[i].x,calacas[i].y)){
-				quica.sprite = 2;
-				quica.vida--;
+		gallina.dibujar(contextoBuffer);
+		for(i=0;i<carros.length;i++){
+			carros[i].dibujar(contextoBuffer);
+			carros[i].actualizar();
+			if(gallina.colision(carros[i].x,carros[i].y)){
+				gallina.sprite = 2;
+				gallina.vida--;
 				$('#pierde')[0].play();
 			}
 		}
-		
-		if(quica.vida <= 0)
+
+		if(gallina.vida <= 0)
 			jugando = false;
-		
+
 		contexto.clearRect(0,0,miCanvas.width,miCanvas.height);
 		contexto.drawImage(buffer, 0, 0);
 		setTimeout("run()",20);
-		
+
 	}else{
 		contextoBuffer.clearRect(0,0,buffer.width,buffer.height);
 		contextoBuffer.fillStyle = "#ffffff";
-		quica.sprite = 3;
-		quica.vida = 0;
-		quica.dibujar(contextoBuffer);
+		gallina.sprite = 3;
+		gallina.vida = 0;
+		gallina.dibujar(contextoBuffer);
 		contextoBuffer.font = "50px sans-serif";
 		contextoBuffer.fillText("GAMEOVER", 300, 440);
 		contextoBuffer.fillStyle = "#ff0000";
@@ -86,7 +86,5 @@ function run(){
 		contexto.clearRect(0,0,miCanvas.width,miCanvas.height);
 		contexto.drawImage(buffer, 0, 0);
 	}
-	
+
 }
-
-
